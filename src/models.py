@@ -9,11 +9,53 @@ class User(db.Model):
     is_active = db.Column(db.Boolean(), unique=False, nullable=False)
 
     def __repr__(self):
-        return '<User %r>' % self.username
+        return '<User %r>' % self.email
 
     def serialize(self):
         return {
             "id": self.id,
-            "email": self.email,
+            "email": self.email
+            # do not serialize the password, its a security breach
+        }
+
+class People(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(120), unique=False, nullable=False)
+    eye_color = db.Column(db.String(80), unique=False, nullable=True)
+    gender = db.Column(db.String(80), unique=False, nullable=True)
+    birth_year = db.Column(db.String(120), unique=False, nullable=False)
+
+    def __repr__(self):
+        return '<People %r>' % self.name
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "eye_color": self.eye_color,
+            "gender": self.gender,
+            "birth_year": self.birth_year
+            # do not serialize the password, its a security breach
+        }
+
+class Planets(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(120), unique=True, nullable=False)
+    climate = db.Column(db.String(120), unique=False, nullable=True)
+    population = db.Column(db.Integer, unique=False, nullable=True)
+    orbital_period = db.Column(db.Float, unique=False, nullable=False)
+    gravity = db.Column(db.String(120), unique=False, nullable=False)
+
+    def __repr__(self):
+        return '<Planets %r>' % self.name
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "climate": self.climate,
+            "population": self.population,
+            "orbital_period": self.orbital_period,
+            "gravity": self.gravity
             # do not serialize the password, its a security breach
         }
